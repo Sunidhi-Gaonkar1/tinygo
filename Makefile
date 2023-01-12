@@ -82,14 +82,14 @@ ifneq ($(CROSS),)
         -DCMAKE_CXX_COMPILER=$(CXX) \
         -DLLVM_DEFAULT_TARGET_TRIPLE=$(CROSS) \
         -DCROSS_TOOLCHAIN_FLAGS_NATIVE="-UCMAKE_C_COMPILER;-UCMAKE_CXX_COMPILER"
-    ifeq ($(CROSS), arm-linux-gnueabihf)
+    ifeq ($(CROSS), ppc64le-linux-gnu)
         # Assume we're building on a Debian-like distro, with QEMU installed.
-        LLVM_CONFIG_PREFIX = qemu-arm -L /usr/arm-linux-gnueabihf/
+        LLVM_CONFIG_PREFIX = qemu-arm -L /usr/ppc64le-linux-gnu/
         # The CMAKE_SYSTEM_NAME flag triggers cross compilation mode.
         LLVM_OPTION += \
             -DCMAKE_SYSTEM_NAME=Linux \
-            -DLLVM_TARGET_ARCH=ARM
-        GOENVFLAGS = GOARCH=arm CC=$(CC) CXX=$(CXX) CGO_ENABLED=1
+            -DLLVM_TARGET_ARCH=ppc64le
+        GOENVFLAGS = GOARCH=ppc64le CC=$(CC) CXX=$(CXX) CGO_ENABLED=1
         BINARYEN_OPTION += -DCMAKE_C_COMPILER=$(CC) -DCMAKE_CXX_COMPILER=$(CXX)
     else ifeq ($(CROSS), aarch64-linux-gnu)
         # Assume we're building on a Debian-like distro, with QEMU installed.
